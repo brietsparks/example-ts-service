@@ -4,6 +4,6 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - IMAGE_NAME="${CODEBUILD_PROJECT}-build-${CODEBUILD_BUILD_ID}"
+      - IMAGE_NAME="example-ts-service-${CODEBUILD_BUILD_ID}"
       - echo Building the Docker image with name $IMAGE_NAME...
       - docker build -t $IMAGE_NAME .
