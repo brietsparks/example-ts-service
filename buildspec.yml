@@ -1,9 +1,15 @@
 version: 0.2
 
 phases:
+  pre_build:
+    commands:
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REPOSITORY_URI
   build:
     commands:
-      - echo Build started on `date`
-      - IMAGE_NAME="example-ts-service-${CODEBUILD_BUILD_ID}"
-      - echo Building the Docker image with name $IMAGE_NAME...
+      - IMAGE_NAME="example-ts-service-${CODEBUILD_RESOLVED_SOURCE_VERSION}"
       - docker build -t $IMAGE_NAME .
+  post_build:
+    commands:
+      - docker tag $IMAGE_NAME:latest $ECR_REPOSITORY_URI:latest
+      - docker push $ECR_REPOSITORY_URI:latest
+
