@@ -6,10 +6,9 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REPOSITORY_URI
   build:
     commands:
-      - IMAGE_NAME="example-ts-service-${CODEBUILD_RESOLVED_SOURCE_VERSION}"
-      - docker build -t $IMAGE_NAME .
+      - docker build -t $ECR_REPOSITORY_URI:latest -t $ECR_REPOSITORY_URI:$IMAGE_TAG .
   post_build:
     commands:
-      - docker tag $IMAGE_NAME:latest $ECR_REPOSITORY_URI:latest
       - docker push $ECR_REPOSITORY_URI:latest
+      - docker push $ECR_REPOSITORY_URI:$IMAGE_TAG
 
