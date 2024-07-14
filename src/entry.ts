@@ -17,7 +17,7 @@ const server = express();
 
 server.get('/hello/:name', (req, res) => {
   const name = req.params.name;
-  res.json({ message: `Hello, ${name}!!!!` });
+  res.json({ message: `Hello, ${name}!` });
 });
 
 server.get('/example', (_, res) => {
