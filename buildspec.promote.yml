@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REPOSITORY_URI
+  post_build:
+    commands:
+      - docker pull $ECR_REPOSITORY_URI:$IMAGE_CURRENT_TAG
+      - docker tag $ECR_REPOSITORY_URI:$IMAGE_CURRENT_TAG $ECR_REPOSITORY_URI:$IMAGE_PROMOTION_TAG 
+      - docker push $ECR_REPOSITORY_URI:$IMAGE_PROMOTION_TAG
+      - printf '[{"name":"%s","imageUri":"%s:%s"}]' $IMAGE_DEF_NAME $ECR_REPOSITORY_URI $IMAGE_PROMOTION_TAG > imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json
