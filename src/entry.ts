@@ -24,4 +24,8 @@ server.get('/example', (_, res) => {
   res.json(exampleVar);
 });
 
+server.get('/health', (req, res) => {
+  res.send('ok');
+});
+
 server.listen(port, () => console.log(`listening on port ${port}`));
