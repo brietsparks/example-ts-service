@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPOSITORY: my-app
+  ECR_REPOSITORY: example1
   IMAGE_TAG: ${{ github.sha }}
 
 jobs:
