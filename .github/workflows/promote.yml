@@ -39,5 +39,5 @@ jobs:
             --output text)
 
           docker pull $ECR_REGISTRY:${{ github.event.inputs.image_tag }}
-          docker tag $ECR_REGISTRY:${{ github.event.inputs.image_tag }} $ECR_REGISTRY:prod
-          docker push $ECR_REGISTRY:prod
+          docker tag $ECR_REGISTRY:${{ github.event.inputs.image_tag }} $ECR_REGISTRY:production
+          docker push $ECR_REGISTRY:production
